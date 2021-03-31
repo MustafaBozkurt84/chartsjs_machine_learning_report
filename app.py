@@ -100,7 +100,7 @@ def index():
                 data.my_dict["my_dict_df_columns"]=data.my_dict_df.columns
                 data.my_dict["create label1"] = list(data.my_dict_df.iloc[:, 0])
                 data.my_dict["create chart2"] = list(data.my_dict_df.iloc[:, 1])
-                data.my_dict["prediction_output_len"] = data.my_dict_df.shape[0]
+                data.my_dict["prediction_output_len"] = len(data.my_dict["create label1"])
                 data.my_dict["chart_type"] = "bar"
         else:
 
@@ -113,7 +113,7 @@ def index():
                 data.my_dict["create label1"] = list(data.my_dict_df.iloc[:, 0])
                 data.my_dict["create chart2"] = list(data.my_dict_df.iloc[:, 1])
                 data.my_dict["chart_type"] = "line"
-                data.my_dict["prediction_output_len"] = data.my_dict_df.shape[0]
+                data.my_dict["prediction_output_len"] = len(data.my_dict["create label1"])
     except:
         pass
 

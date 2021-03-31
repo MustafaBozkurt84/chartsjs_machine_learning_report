@@ -86,11 +86,12 @@ def index():
     data.my_dict["url"]= data.url
     data.select_box1 = request.form.get("one")
     data.select_box = request.form.get("ones")
-    if (data.select_box==None) & (data.select_box=="Select Feature")&(data.select_box1==None) & (data.select_box1=="Select Feature"):
+    if (data.select_box == None):
         data.select_box = data.my_dict["prediction_output_categorical_columns"][0]
         data.select_box1 = data.my_dict["prediction_output_numeric_columns"][0]
 
     if data.select_box not in data.my_dict["prediction_output_numeric_columns"]:
+        try:
 
                 a = data.select_box
                 b = data.select_box1
@@ -102,8 +103,21 @@ def index():
                 data.my_dict["create chart2"] = list(data.my_dict_df.iloc[:, 1])
                 data.my_dict["prediction_output_len"] = len(data.my_dict["create label1"])
                 data.my_dict["chart_type"] = "bar"
+        except:
+            data.select_box = data.my_dict["prediction_output_categorical_columns"][0]
+            data.select_box1 = data.my_dict["prediction_output_numeric_columns"][0]
+            a = data.select_box
+            b = data.select_box1
+            data.my_dict["a"] = a
+            data.my_dict["b"] = b
+            data.my_dict_df = data.prediction_output.groupby(by=a)[b].mean().reset_index()
+            data.my_dict["my_dict_df_columns"] = data.my_dict_df.columns
+            data.my_dict["create label1"] = list(data.my_dict_df.iloc[:, 0])
+            data.my_dict["create chart2"] = list(data.my_dict_df.iloc[:, 1])
+            data.my_dict["prediction_output_len"] = len(data.my_dict["create label1"])
+            data.my_dict["chart_type"] = "bar"
     else:
-
+        try:
                 a = data.select_box
                 b = data.select_box1
                 data.my_dict["a"] = a
@@ -114,6 +128,20 @@ def index():
                 data.my_dict["create chart2"] = list(data.my_dict_df.iloc[:, 1])
                 data.my_dict["chart_type"] = "line"
                 data.my_dict["prediction_output_len"] = len(data.my_dict["create label1"])
+        except:
+            data.select_box = data.my_dict["prediction_output_categorical_columns"][0]
+            data.select_box1 = data.my_dict["prediction_output_numeric_columns"][0]
+            a = data.select_box
+            b = data.select_box1
+            data.my_dict["a"] = a
+            data.my_dict["b"] = b
+            data.my_dict_df = data.prediction_output[[a, b]]
+            data.my_dict["my_dict_df_columns"] = data.my_dict_df.columns
+            data.my_dict["create label1"] = list(data.my_dict_df.iloc[:, 0])
+            data.my_dict["create chart2"] = list(data.my_dict_df.iloc[:, 1])
+            data.my_dict["chart_type"] = "line"
+            data.my_dict["prediction_output_len"] = len(data.my_dict["create label1"])
+
 
 
 

@@ -89,8 +89,8 @@ def index():
     if (data.select_box==None) & (data.select_box=="Select Feature")&(data.select_box1==None) & (data.select_box1=="Select Feature"):
         data.select_box = data.my_dict["prediction_output_categorical_columns"][0]
         data.select_box1 = data.my_dict["prediction_output_numeric_columns"][0]
-    try:
-        if data.select_box not in data.my_dict["prediction_output_numeric_columns"]:
+
+    if data.select_box not in data.my_dict["prediction_output_numeric_columns"]:
 
                 a = data.select_box
                 b = data.select_box1
@@ -102,7 +102,7 @@ def index():
                 data.my_dict["create chart2"] = list(data.my_dict_df.iloc[:, 1])
                 data.my_dict["prediction_output_len"] = len(data.my_dict["create label1"])
                 data.my_dict["chart_type"] = "bar"
-        else:
+    else:
 
                 a = data.select_box
                 b = data.select_box1
@@ -114,8 +114,7 @@ def index():
                 data.my_dict["create chart2"] = list(data.my_dict_df.iloc[:, 1])
                 data.my_dict["chart_type"] = "line"
                 data.my_dict["prediction_output_len"] = len(data.my_dict["create label1"])
-    except:
-        pass
+
 
 
 

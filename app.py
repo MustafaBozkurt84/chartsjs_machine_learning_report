@@ -96,7 +96,7 @@ def index():
                 b = data.select_box1
                 data.my_dict["a"] = a
                 data.my_dict["b"] = b
-                data.my_dict_df = data.prediction_output.groupby(a)[b].mean().reset_index()
+                data.my_dict_df = data.prediction_output.groupby(by=a)[b].mean().reset_index()
                 data.my_dict["my_dict_df_columns"]=data.my_dict_df.columns
                 data.my_dict["create label1"] = list(data.my_dict_df.iloc[:, 0])
                 data.my_dict["create chart2"] = list(data.my_dict_df.iloc[:, 1])

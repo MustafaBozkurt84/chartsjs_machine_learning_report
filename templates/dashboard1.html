@@ -332,75 +332,7 @@ var myChart4 = new Chart(ctx, {
               </div>
 
             </div>
-            <div class="card card-chart table-responsive" style="" >
 
-              <div class="card-header">
-                <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-success"></i>Feature Importance
-               </h4>
-                <h3 class="card-title"><i class="tim-icons icon-single-02 text-primary"></i> Ankete Katılan Sayı
-
-               </h3>
-              </div>
-              <div class="table-responsive">
-                <div class="table-responsive" >
-                  <canvas id= "mychart4" width="300" height="100" ></canvas>
-                   <script>
-var ctx = document.getElementById("mychart4").getContext('2d');
-var myChart4 = new Chart(ctx, {
-    type: 'horizontalBar',
-    data: {
-        labels: {{my_dict["Feature"] | safe}}
-
-              ,
-        datasets: [{
-            label: "Individual_Feature_Importance",
-            data: {{ my_dict["Individual_Feature_Importance"] | safe}}
-              ,
-            backgroundColor: 'rgba(255, 99, 132, 0.4)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-
-            borderWidth: 1
-        },{
-            label: "Pearson_Correlation",
-            data: {{ my_dict["Pearson_Correlation"] | safe}}
-              ,
-            backgroundColor: 'rgba(54, 162, 235, 0.4)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-
-            borderWidth: 1
-        },{
-            label: "Spearman_Correlation",
-            data: {{ my_dict["Spearman_Correlation"] | safe}}
-              ,
-            backgroundColor: 'rgba(255, 206, 86, 0.4)',
-            borderColor: 'rgba(255, 206, 86, 1)',
-
-            borderWidth: 1
-        },{
-            label: "Kendall_Correlation",
-            data: {{ my_dict["Kendall_Correlation"] | safe}}
-              ,
-            backgroundColor: 'rgba(75, 192, 192, 0.4)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});
-</script>
-                </div>
-              </div>
-
-            </div>
 
           </div>
         <div class="row">
@@ -677,15 +609,87 @@ var myChart4 = new Chart(ctx, {
               </div>
             </div>
           </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="card card-chart">
+
+          <div class="row">
+          <div class="col-lg-6 col-md-12">
+            <div class="card ">
+              <div class="card-header">
+
+
+                <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-primary"></i> Prediction Output </h4>
+                  <form action="{{my_dict["url"]}}" method="post" id="single_select_form" style="font-size;medium; " >
+              <h3>Select Features</h3>
+                    <h5>X axis</h5>
+                   <select name="ones" class="form-control selectpicker" >
+      {% for column in my_dict["prediction_columns"] %}
+       <option value="{{column}}" style="font-size: medium ;">{{column}}</option>
+        {% endfor %}
+    </select>
+
+                   <br><br><h5>Y axis</h5>
+                    <select name="one" class="form-control selectpicker" >
+      {% for column in my_dict["prediction_output_numeric_columns"] %}
+       <option value="{{column}}" style="font-size: medium ;">{{column}}</option>
+        {% endfor %}
+    </select>
+     <br /><br />
+
+     <input type="submit" name="submit" class="btn btn-info" value="Create Chart" />
+    </form>
+                <h3 class="card-title"><i class="tim-icons icon-single-02 text-info"></i>
+                  Test: {{select_box | safe}}
+               </h3>
+              </div>
               <div class="card-body">
-                <div class="table-responsive"> <h4 style="color:rgba(255, 99, 132, 1);">Summary</h4>
+                <div class="chart-area">
+                  <canvas id= "mychart30" width="150" height="68"></canvas>
+                  <script>
+var ctx = document.getElementById("mychart30").getContext('2d');
+var myChart4 = new Chart(ctx, {
+    type: "{{my_dict["chart_type"]}}",
+    data: {
+        labels: {{my_dict["create label1"] | safe}}
+
+              ,
+        datasets: [{
+            label: "X axis :{{my_dict["a"]}} y axis: {{my_dict["b"]}}",
+            data: {{my_dict["create chart2"] | safe}}
+              ,
+            backgroundColor: 'rgba(255, 99, 132, 0.4)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12">
+            <div class="card ">
+             <div class="card-header">
+                <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-info"></i>Accuracy Report</h4>
+                <h3 class="card-title"><i class="tim-icons icon-single-02 text-success"></i> Total observations Train: {{my_dict["Total_observations"][0]}}
+                  Test: {{my_dict["Total_observations"][1]}}
+              </h3>
+              </div>
+               <div class="table-responsive" style="max-height: 500px; overflow: auto;"> <h4 style="color:rgba(255, 99, 132, 1);">Summary</h4>
                   <table class="table tablesorter " id="">
                     <thead class=" text-primary">
                       <tr>
-                        {%for i in my_dict["summary_df_columns"]%}
+                        {%for i in my_dict["my_dict_df_columns"]%}
                         <th>{{i}}</th>
                         {% endfor %}
                       </tr>
@@ -693,30 +697,27 @@ var myChart4 = new Chart(ctx, {
                       </tr>
                     </thead>
                     <tbody>
-                     {% for i in range(0,my_dict["num_summary_df"]) %}
+                     {% for i in range(0,my_dict["prediction_output_len"]+3) %}
                         <tr>
-                        <td>{{my_dict["Column_Name"][i]}} </td>
-                        <td>{{my_dict["Unique_Data"][i]}}</td>
-                        <td>{{my_dict["Missing_Data"][i]}}</td>
-                        <td>{{my_dict["Missing_Percentage"][i]}}</td>
-                          <td>{{my_dict["Data_Types"][i]}} </td>
-                        <td>{{my_dict["Count"][i]}}</td>
-                        <td>{{my_dict["Mean"][i]}}</td>
-                        <td>{{my_dict["Std"][i]}}</td>
-                          <td>{{my_dict["Min"][i]}}</td>
-                          <td>{{my_dict["25%"][i]}} </td>
-                        <td>{{my_dict["50%"][i]}}</td>
-                        <td>{{my_dict["75%"][i]}}</td>
-                        <td>{{my_dict["Max"][i]}}</td>
+                        <td>{{my_dict["create label1"][i]}} </td>
+                        <td>{{my_dict["create chart2"][i]}}</td>
+
                         </tr>
                      {% endfor %}
 
                     </tbody>
                   </table>
                 </div>
-              </div>
-            </div></div>
+            </div>
+          </div>
         </div>
+      </div>
+        <!--     Select     ---------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+
+
+
+       <!--     Sorular Select     ---------------------------------------------------------------------------------------------------------------------------------------------------------->
 
         </div>
 

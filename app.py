@@ -21,6 +21,13 @@ class DataStore():
     my_dict = {}
     dataframelist=None
     round_list=None
+    select_box=[]
+    select_box1=[]
+    url = None
+    my_dict_df=None
+    a=None
+    b=None
+
 data = DataStore()
 
 
@@ -70,8 +77,50 @@ def index():
         data.my_dict[i]=[round(i,2) for i in data.my_dict[i]]
     data.my_dict["summary_df_columns"]=data.summary_df.columns
     data.my_dict["num_summary_df"]=len(data.my_dict["Missing_Percentage"])
+    data.my_dict["prediction_columns"] = data.prediction_output.columns
+    data.my_dict["prediction_columns"]=data.my_dict["prediction_columns"].insert(0,"Select Feature")
+    data.my_dict["prediction_output_numeric_columns"] = data.prediction_output.select_dtypes(exclude=['object']).columns
+    data.my_dict["prediction_output_numeric_columns"]=data.my_dict["prediction_output_numeric_columns"].insert(0,"Select Feature")
+    data.my_dict["prediction_output_categorical_columns"] = data.prediction_output.select_dtypes(include=['object']).columns
+    data.my_dict["url"]= data.url
+    data.select_box1 = request.form.get("one")
+    data.select_box = request.form.get("ones")
+    if (data.select_box==None) & (data.select_box=="Select Feature")&(data.select_box1==None) & (data.select_box1=="Select Feature"):
+        data.select_box = data.my_dict["prediction_output_categorical_columns"][0]
+        data.select_box1 = data.my_dict["prediction_output_numeric_columns"][0]
+    try:
+        if data.select_box not in data.my_dict["prediction_output_numeric_columns"]:
 
-    return render_template('dashboard1.html', my_dict = data.my_dict )
+                a = data.select_box
+                b = data.select_box1
+                data.my_dict["a"] = a
+                data.my_dict["b"] = b
+                data.my_dict_df = data.prediction_output.groupby(a)[b].mean().reset_index()
+                data.my_dict["my_dict_df_columns"]=data.my_dict_df.columns
+                data.my_dict["create label1"] = list(data.my_dict_df.iloc[:, 0])
+                data.my_dict["create chart2"] = list(data.my_dict_df.iloc[:, 1])
+                data.my_dict["prediction_output_len"] = data.my_dict_df.shape[0]
+                data.my_dict["chart_type"] = "bar"
+        else:
+
+                a = data.select_box
+                b = data.select_box1
+                data.my_dict["a"] = a
+                data.my_dict["b"] = b
+                data.my_dict_df = data.prediction_output[[a,b]]
+                data.my_dict["my_dict_df_columns"] = data.my_dict_df.columns
+                data.my_dict["create label1"] = list(data.my_dict_df.iloc[:, 0])
+                data.my_dict["create chart2"] = list(data.my_dict_df.iloc[:, 1])
+                data.my_dict["chart_type"] = "line"
+                data.my_dict["prediction_output_len"] = data.my_dict_df.shape[0]
+    except:
+        pass
+
+
+
+
+
+    return render_template('dashboard1.html', my_dict = data.my_dict ,select_box=data.select_box)
 
 
 @app.route('/login', methods=["POST","GET"])

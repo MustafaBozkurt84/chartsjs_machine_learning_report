@@ -8,6 +8,11 @@ from flask import Flask, jsonify, request, make_response,redirect,url_for,render
 import jwt
 import datetime
 from functools import wraps
+import io
+import base64
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 
@@ -77,12 +82,28 @@ def index():
     for i in data.round_list:
         data.my_dict[i]=[round(i,2) for i in data.my_dict[i]]
     data.my_dict["summary_df_columns"]=data.summary_df.columns
+    data.my_dict["summary_features"] = list(data.summary_df["Column_Name"])
+    data.my_dict["summary_features_selected"] = request.form.getlist("summary")
+    if len(data.my_dict["summary_features_selected"]) == 0:
+        data.my_dict["summary_features_selected"] = list(data.summary_df["Column_Name"])
+    data.my_dict["summary_filtered"] = data.summary_df[data.summary_df["Column_Name"].isin(data.my_dict["summary_features_selected"])].reset_index()
+    data.my_dict["summary_filtered_len_num"] = len(data.my_dict["summary_filtered"]["Column_Name"])
     data.my_dict["num_summary_df"]=len(data.my_dict["Missing_Percentage"])
-    data.my_dict["prediction_columns"] = data.prediction_output.columns
-    data.my_dict["prediction_columns"]=data.my_dict["prediction_columns"].insert(0,"Select Feature")
+    data.my_dict["prediction_columns_"] = data.prediction_output.columns
+    data.my_dict["prediction_columns"]=data.my_dict["prediction_columns_"].insert(0,"Select Feature")
     data.my_dict["prediction_output_numeric_columns"] = data.prediction_output.select_dtypes(exclude=['object']).columns
     data.my_dict["prediction_output_numeric_columns"]=data.my_dict["prediction_output_numeric_columns"].insert(0,"Select Feature")
     data.my_dict["prediction_output_categorical_columns"] = data.prediction_output.select_dtypes(include=['object']).columns
+    data.my_dict["prediction_ids"] = request.form.getlist("predictions")
+    data.my_dict["prediction_ids"] = [int(i) for i in data.my_dict["prediction_ids"]]
+    if len(data.my_dict["prediction_ids"]) == 0:
+        data.my_dict["prediction_ids"] =list(data.prediction_output.loc[1:10,"ID"])
+    data.my_dict["prediction_filtered"] = data.prediction_output[data.prediction_output["ID"].isin(data.my_dict["prediction_ids"])].reset_index()
+    data.my_dict["prediction_filtered_columns"] = data.my_dict["prediction_filtered"].columns
+    data.my_dict["prediction_id_column"] = list(data.prediction_output.loc[:,"ID"])
+    data.my_dict["prediction_filtered_len_num"] = len(data.my_dict["prediction_filtered"]["ID"])
+
+
     data.my_dict["url"]= data.url
     data.select_box1 = request.form.get("one")
     data.select_box = request.form.get("ones")

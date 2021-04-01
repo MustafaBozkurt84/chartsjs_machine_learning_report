@@ -5,6 +5,8 @@ mysql.connector
 gunicorn
 datetime
 PyJWT==v1.7.1
+seaborn
+mathplot
 
 
 

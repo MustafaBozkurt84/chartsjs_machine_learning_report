@@ -20,27 +20,34 @@
 
 
 /* navbar color */
+
 .axis text {
-    font: 10px sans-serif;
+    font: 15px sans-serif ;
+
+
 }
 
 .axis line, .axis path {
     fill: none;
     stroke: #000;
     shape-rendering: crispEdges;
+    color:white;
 }
 
 td, th, tr {
-    padding: 4px;
-    border: 1px solid black;
+    padding: 15px;
+    border: 1px solid white;
+    color: white;
 }
 
 table{
     border-collapse: collapse;
+    color:white;
 }
 
 #dataView{
-  margin-top:50px;
+  margin-top:10px;
+  color:white;
 }
 .select-box {
   cursor: pointer;

@@ -348,7 +348,7 @@ var myChart4 = new Chart(ctx, {
                       </tr>
                     </thead>
                     <tbody>
-                     {% for i in range(0,100) %}
+                     {% for i in range(0,my_dict["prediction_output_len"]) %}
                         <tr>
                         <td>{{my_dict["create label1"][i]}} </td>
                         <td>{{my_dict["create chart2"][i]}}</td>
@@ -356,12 +356,96 @@ var myChart4 = new Chart(ctx, {
                         </tr>
                      {% endfor %}
 
+
                     </tbody>
                   </table>
                 </div>
             </div>
           </div>
         </div>
+          <div class="row">
+            <div class="card card-chart table-responsive" >
+
+              <div class="card-header">
+                <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-success"></i>Feature Importance
+               </h4>
+                <h3 class="card-title"><i class="tim-icons icon-single-02 text-primary"></i> Ankete Katılan Sayı
+
+               </h3>
+              </div>
+              <div class="table-responsive">
+
+                   <form action="{{my_dict["url"]}}" method="post" id="multiple_select_form" style="font-size;medium; " >
+              <h3>Select ID for Filtering </h3>
+     <select name="predictions" id="predictions" class="form-control selectpicker" style="font-size;medium;margin-top: 0px;padding:5px;" data-live-search="true" multiple  size="6">
+        {% for id in my_dict["prediction_id_column"] %}
+       <option value="{{id}}" style="font-size: medium ;">{{id}}</option>
+        {% endfor %}
+
+     </select>
+     <br /><br />
+     <input type="hidden" name="hidden_skillssss" id="hidden_skillsss" />
+     <input type="submit" name="submit" class="btn btn-info" value="Filter" />
+    </form>
+
+
+                   <table class="table tablesorter " id="">
+                    <thead class=" text-primary">
+                      <tr>
+                        {%for i in my_dict["prediction_columns_"]%}
+                        <th>{{i}}</th>
+                        {% endfor %}
+                      </tr>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                     {% for i in range(0,my_dict["prediction_filtered_len_num"]) %}
+                        <tr>
+                        <td>{{my_dict["prediction_filtered"]["saving_ratio_original"][i]}} </td>
+                        <td>{{my_dict["prediction_filtered"]["account_check_status_original"][i]}} </td>
+                            <td>{{my_dict["prediction_filtered"]["duration_in_month_original"][i]}} </td>
+                        <td>{{my_dict["prediction_filtered"]["credit_history_original"][i]}} </td>
+                        <td>{{my_dict["prediction_filtered"]["purpose_original"][i]}} </td>
+
+                         <td>{{my_dict["prediction_filtered"]["savings_original"][i]}} </td>
+                        <td>{{my_dict["prediction_filtered"]["property_original"][i]}} </td>
+                            <td>{{my_dict["prediction_filtered"]["housing_original"][i]}} </td>
+                        <td>{{my_dict["prediction_filtered"]["ID"][i]}} </td>
+                        <td>{{my_dict["prediction_filtered"]["saving_ratio_equal_frequency"][i]}} </td>
+
+                            <td>{{my_dict["prediction_filtered"]["duration_in_month_equal_frequency"][i]}} </td>
+                        <td>{{my_dict["prediction_filtered"]["saving_ratio_reciprocal"][i]}} </td>
+                            <td>{{my_dict["prediction_filtered"]["account_check_status_no checking account"][i]}} </td>
+                        <td>{{my_dict["prediction_filtered"]["account_check_status_< 0 DM"][i]}} </td>
+                        <td>{{my_dict["prediction_filtered"]["credit_history_critical account/ other credits existing (not at this bank)"][i]}} </td>
+
+                         <td>{{my_dict["prediction_filtered"]["purpose_domestic appliances"][i]}} </td>
+                        <td>{{my_dict["prediction_filtered"]["savings_... < 100 DM"][i]}} </td>
+                            <td>{{my_dict["prediction_filtered"]["savings_unknown/ no savings account"][i]}} </td>
+                        <td>{{my_dict["prediction_filtered"]["property_real estate"][i]}} </td>
+                        <td>{{my_dict["prediction_filtered"]["housing_own"][i]}} </td>
+
+                         <td>{{my_dict["prediction_filtered"]["purpose_count_frequency"][i]}} </td>
+                        <td>{{my_dict["prediction_filtered"]["property_count_frequency"][i]}} </td>
+                            <td>{{my_dict["prediction_filtered"]["purpose_ordinal_encoder"][i]}} </td>
+                        <td>{{my_dict["prediction_filtered"]["property_ordinal_encoder"][i]}} </td>
+                        <td>{{my_dict["prediction_filtered"]["credit_history_mean_encoder"][i]}} </td>
+
+                            <td>{{my_dict["prediction_filtered"]["predictions"][i]}} </td>
+                        <td>{{my_dict["prediction_filtered"]["predictions_binary"][i]}} </td>
+                        </tr>
+                     {% endfor %}
+
+
+                    </tbody>
+                  </table>
+              </div>
+
+            </div>
+
+
+          </div>
           <div class="row">
          <div class="card card-chart table-responsive" >
 
@@ -435,6 +519,7 @@ var myChart4 = new Chart(ctx, {
 
 
           </div>
+
         <div class="row">
             <div class="card card-chart table-responsive" >
 
@@ -720,6 +805,24 @@ var myChart4 = new Chart(ctx, {
               </div>
               <div class="card-body">
                 <div class="chart-area">
+                  <div id="dataView1"></div>
+    <div style="display:inline-block; float:left; " id="container1"></div>
+    <div style="display:inline-block; float:left;color:white;" id="legend1"></div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-primary"></i> Accuracy Report </h4>
+                <h3 class="card-title"><i class="tim-icons icon-single-02 text-info"></i>Total observations Train: {{my_dict["Total_observations"][0]}}
+                  Test: {{my_dict["Total_observations"][1]}}
+               </h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
                   <div id="dataView"></div>
     <div style="display:inline-block; float:left; " id="container"></div>
     <div style="display:inline-block; float:left;color:white;" id="legend"></div>
@@ -728,6 +831,75 @@ var myChart4 = new Chart(ctx, {
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="card card-chart table-responsive" >
+
+              <div class="card-header">
+                <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-success"></i>Feature Importance
+               </h4>
+                <h3 class="card-title"><i class="tim-icons icon-single-02 text-primary"></i> Ankete Katılan Sayı
+
+               </h3>
+              </div>
+              <div class="table-responsive">
+
+                   <form action="{{my_dict["url"]}}" method="post" id="multiple_select_form" style="font-size;medium; " >
+              <h3>Select ID for Filtering </h3>
+     <select name="summary" id="summary" class="form-control selectpicker" style="font-size;medium;margin-top: 0px;padding:5px;" data-live-search="true" multiple  size="6">
+        {% for id in my_dict["summary_features"] %}
+       <option value="{{id}}" style="font-size: medium ;">{{id}}</option>
+        {% endfor %}
+
+     </select>
+     <br /><br />
+     <input type="hidden" name="hidden_skillssss" id="hidden_skillsss" />
+     <input type="submit" name="submit" class="btn btn-info" value="Filter" />
+    </form>
+
+
+                   <table class="table tablesorter " id="">
+                    <thead class=" text-primary">
+                      <tr>
+                        {%for i in my_dict["summary_df_columns"]%}
+                        <th>{{i}}</th>
+                        {% endfor %}
+                      </tr>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                     {% for i in range(0,my_dict["summary_filtered_len_num"]) %}
+                        <tr>
+                        <td>{{my_dict["summary_filtered"]["Column_Name"][i]}} </td>
+                         <td>{{my_dict["summary_filtered"]["Unique_Data"][i]}} </td>
+                             <td>{{my_dict["summary_filtered"]["Missing_Data"][i]}} </td>
+                             <td>{{my_dict["summary_filtered"]["Missing_Percentage"][i]}} </td>
+                             <td>{{my_dict["summary_filtered"]["Data_Types"][i]}} </td>
+                             <td>{{my_dict["summary_filtered"]["Count"][i]}} </td>
+                             <td>{{my_dict["summary_filtered"]["Mean"][i]}} </td>
+                             <td>{{my_dict["summary_filtered"]["Std"][i]}} </td>
+                             <td>{{my_dict["summary_filtered"]["Min"][i]}} </td>
+                             <td>{{my_dict["summary_filtered"]["25%"][i]}} </td>
+                             <td>{{my_dict["summary_filtered"]["50%"][i]}} </td>
+                            <td>{{my_dict["summary_filtered"]["75%"][i]}} </td>
+                            <td>{{my_dict["summary_filtered"]["Max"][i]}} </td>
+
+
+
+                        </tr>
+                     {% endfor %}
+
+
+                    </tbody>
+                  </table>
+              </div>
+
+            </div>
+
+
+          </div>
+
+
       </div>
         <!--     Select     ---------------------------------------------------------------------------------------------------------------------------------------------------------->
 
@@ -921,11 +1093,11 @@ var myChart4 = new Chart(ctx, {
       }
      });
     });
-    var margin = {top: 50, right: 50, bottom: 100, left: 100};
+    var margin = {top: 50, right: 50, bottom: 100, left: 50};
 
 function Matrix(options) {
-	    var width = 250,
-	    height = 250,
+	    var width = 300,
+	    height = 300,
 	    data = options.data,
 	    container = options.container,
 	    labelsData = options.labels,
@@ -1175,4 +1347,4 @@ function tabulate(data, columns) {
 </body>
 
 
-</html>
+</html>dir

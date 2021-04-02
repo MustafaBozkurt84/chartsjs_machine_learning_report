@@ -934,16 +934,14 @@ var myChart4 = new Chart(ctx, {
          <div class="col-lg-6">
             <div class="card card-chart">
               <div class="card-header">
-                <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-primary"></i> Accuracy Report </h4>
+                <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-primary"></i> Train Confusion Matrix </h4>
                 <h3 class="card-title"><i class="tim-icons icon-single-02 text-info"></i>Total observations Train: {{my_dict["Total_observations"][0]}}
                   Test: {{my_dict["Total_observations"][1]}}
                </h3>
               </div>
               <div class="card-body">
-                <div class="chart-area">
-                  <div id="dataView1"></div>
-    <div style="display:inline-block; float:left; " id="container1"></div>
-    <div style="display:inline-block; float:left;color:white;" id="legend1"></div>
+                <div class="table-responsive">
+                 <img id="train" name="train" src="{{url_for('visualize1') }}" height="600" width="1000">
 
                 </div>
               </div>
@@ -952,16 +950,16 @@ var myChart4 = new Chart(ctx, {
           <div class="col-lg-6">
             <div class="card card-chart">
               <div class="card-header">
-                <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-primary"></i> Accuracy Report </h4>
+                <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-primary"></i> Test Confusion Matrix </h4>
                 <h3 class="card-title"><i class="tim-icons icon-single-02 text-info"></i>Total observations Train: {{my_dict["Total_observations"][0]}}
                   Test: {{my_dict["Total_observations"][1]}}
                </h3>
               </div>
               <div class="card-body">
-                <div class="chart-area">
-                  <div id="dataView"></div>
-    <div style="display:inline-block; float:left; " id="container"></div>
-    <div style="display:inline-block; float:left;color:white;" id="legend"></div>
+                <div class="table-responsive">
+
+                    <img id="test" src="{{url_for('visualize')}}" height="600" width="1000">
+
 
                 </div>
               </div>
@@ -971,9 +969,9 @@ var myChart4 = new Chart(ctx, {
             <div class="card card-chart table-responsive" >
 
               <div class="card-header">
-                <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-success"></i>Feature Importance
+                <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-success"></i>Summary
                </h4>
-                <h3 class="card-title"><i class="tim-icons icon-single-02 text-primary"></i> Ankete Katılan Sayı
+                <h3 class="card-title"><i class="tim-icons icon-single-02 text-primary"></i>
 
                </h3>
               </div>

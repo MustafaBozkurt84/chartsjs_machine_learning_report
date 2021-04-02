@@ -487,9 +487,9 @@ var myChart4 = new Chart(ctx, {
                   Test: {{my_dict["Total_observations"][1]}}
               </h3>
               </div>
-               <div class="table-responsive" style="max-height: 500px; overflow: auto;"> <h4 style="color:rgba(255, 99, 132, 1);">Summary</h4>
+               <div class="table-responsive" style="max-height: 500px; overflow: auto;">
                   <table class="table tablesorter " id="">
-                    <thead class=" text-primary">
+                    <thead class="text-primary">
                       <tr>
                         {%for i in my_dict["my_dict_df_columns"]%}
                         <th>{{i}}</th>
@@ -514,17 +514,20 @@ var myChart4 = new Chart(ctx, {
             </div>
           </div>
         </div>
+
           <div class="row">
             <div class="card card-chart table-responsive" >
 
               <div class="card-header">
                 <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-success"></i>Prediction Output
                </h4>
+                <h3 class="card-title"><i class="tim-icons icon-single-02 text-primary"></i>
 
+               </h3>
               </div>
               <div class="table-responsive">
 
-                   <form action="{{my_dict["url"]}}" method="post" id="multiple_select_form" style="font-size;medium; " >
+                   <form  method="post" id="multiple_select_form" style="font-size;medium; " >
               <h3>Select ID for Filtering </h3>
      <select name="predictions" id="predictions" class="form-control selectpicker" style="font-size;medium;margin-top: 0px;padding:5px;" data-live-search="true" multiple  size="6">
         {% for id in my_dict["prediction_id_column"] %}
@@ -538,7 +541,8 @@ var myChart4 = new Chart(ctx, {
     </form>
 
 
-                   <table class="table tablesorter " id="">
+
+                  <table class="table tablesorter " id="" >
                     <thead class=" text-primary">
                       <tr>
                         {%for i in my_dict["prediction_columns_"]%}
@@ -549,6 +553,7 @@ var myChart4 = new Chart(ctx, {
 
                     </thead>
                     <tbody>
+
                      {% for i in range(0,my_dict["prediction_filtered_len_num"]) %}
                         <tr>
                         <td>{{my_dict["prediction_filtered"]["saving_ratio_original"][i]}} </td>
@@ -589,12 +594,10 @@ var myChart4 = new Chart(ctx, {
 
                     </tbody>
                   </table>
-              </div>
 
             </div>
-
-
           </div>
+        </div>
           <div class="row">
          <div class="card card-chart table-responsive" >
 

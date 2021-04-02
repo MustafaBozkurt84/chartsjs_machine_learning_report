@@ -149,24 +149,58 @@
                         <div class="card-body">
                           <div class="row">
                             <div class="col">
-                              <h5 class="card-title text-uppercase text-info mb-0 " >Anket Sayısı</h5>
-                              <span class="h2 font-weight-bold  mb-0" style="color:bisque"></span>
+                              <h1 class="card-title  text-info mb-0 " >Train Accuracy</h1>
+
                             </div>
                             <div class="col-auto">
-                              <div class="icon icon-shape bg-danger text-white rounded-circle shadow" style="width: 3rem;
+                              <div class="icon icon-shape bg-yellow text-white rounded-circle shadow" style="width: 3rem;
                               height: 3rem; font-size: 2.25rem;display: inline-flex;
   padding: 12px;
   text-align: center;
   border-radius: 50%;
   align-items: center;
   justify-content: center">
-                                <i class="fas fa-chart-bar"></i>
+                               <i class="fas fa-percent"></i>
                               </div>
-                            </div>
-                          </div>
+                            </div><canvas id="dashboardChart" width="500" height="500"></canvas>
+                              <script>var data = {
+    labels: [
+        "Accuracy",
+        "Inaccurate"
+
+
+    ],
+    datasets: [
+        {
+            data: [{{my_dict["Accuracy"][0]}}, 1-{{my_dict["Accuracy"][0]}}],
+            backgroundColor: [
+                "#008000",
+                "rgba(105,105,105 ,0)",
+                "#FFCE56"
+            ],
+            hoverBackgroundColor: [
+                "#36A2EB",
+                "#36A2EB",
+                "#FFCE56"
+            ]
+        }]
+};
+
+var ctx = document.getElementById("dashboardChart");
+
+// And for a doughnut chart
+var myDoughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: data,
+    options: {
+    	rotation: 1 * Math.PI,
+      circumference: 1 * Math.PI
+    }
+});</script>
+                          </div><h1 style="text-align:center;font-size: 4em; color:rgba(34,139,34 ,05);">{{my_dict["Accuracy"][0]}}</h1>
                           <p class="mt-3 mb-0 text-muted text-sm">
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 15.50%</span>
-                            <span class="text-nowrap">Since last month</span>
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{my_dict["Accuracy"][0]-my_dict["Accuracy"][1]}}% </span>
+                            <span class="text-nowrap">From Test Accuracy</span>
                           </p>
                         </div>
                       </div>
@@ -176,24 +210,58 @@
                         <div class="card-body">
                           <div class="row">
                             <div class="col">
-                              <h5 class="card-title text-uppercase text-info mb-0">Ankete Katılan Kişi Sayısı</h5>
-                              <span class="h2 font-weight-bold mb-0"style="color:bisque"></span>
+                              <h1 class="card-title  text-info mb-0 " >Test Accuracy</h1>
+
                             </div>
                             <div class="col-auto">
-                              <div class="icon icon-shape bg-warning text-white rounded-circle shadow" style="width: 3rem;
+                              <div class="icon icon-shape bg-yellow text-white rounded-circle shadow" style="width: 3rem;
                               height: 3rem; font-size: 2.25rem;display: inline-flex;
   padding: 12px;
   text-align: center;
   border-radius: 50%;
   align-items: center;
   justify-content: center">
-                                <i class="fas fa-chart-pie"></i>
+                               <i class="fas fa-percent"></i>
                               </div>
-                            </div>
-                          </div>
+                            </div><canvas id="dashboardChart1" width="500" height="500"></canvas>
+                              <script>var data = {
+    labels: [
+        "Accuracy",
+        "Inaccurate"
+
+
+    ],
+    datasets: [
+        {
+            data: [{{my_dict["Accuracy"][1]|safe}}, 1-{{my_dict["Accuracy"][1]|safe}}],
+            backgroundColor: [
+                "#008000",
+                "rgba(105,105,105 ,0)",
+                "#FFCE56"
+            ],
+            hoverBackgroundColor: [
+                "#36A2EB",
+                "#36A2EB",
+                "#FFCE56"
+            ]
+        }]
+};
+
+var ctx = document.getElementById("dashboardChart1");
+
+// And for a doughnut chart
+var myDoughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: data,
+    options: {
+    	rotation: 1 * Math.PI,
+      circumference: 1 * Math.PI
+    }
+});</script>
+                          </div><h1 style="text-align:center;font-size: 4em; color:rgba(34,139,34 ,05);">{{my_dict["Accuracy"][1]}}</h1>
                           <p class="mt-3 mb-0 text-muted text-sm">
-                            <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                            <span class="text-nowrap">Since last week</span>
+                            <span class="text-success mr-2"><i class="fa fa-arrow-down"></i> {{my_dict["Accuracy"][0]-my_dict["Accuracy"][1]}}%</span>
+                            <span class="text-nowrap">From Train Accuracy</span>
                           </p>
                         </div>
                       </div>
@@ -203,24 +271,58 @@
                         <div class="card-body">
                           <div class="row">
                             <div class="col">
-                              <h5 class="card-title text-uppercase text-info mb-0">Toplam Cevap Seçeneği  </h5>
-                              <span class="h2 font-weight-bold mb-0"style="color:bisque"></span>
+                              <h2 class="card-title  text-info mb-0 " >Train Roc auc score</h2>
+
                             </div>
                             <div class="col-auto">
-                              <div class="icon icon-shape bg-yellow text-white rounded-circle shadow"style="width: 3rem;
+                              <div class="icon icon-shape bg-yellow text-white rounded-circle shadow" style="width: 3rem;
                               height: 3rem; font-size: 2.25rem;display: inline-flex;
   padding: 12px;
   text-align: center;
   border-radius: 50%;
   align-items: center;
   justify-content: center">
-                                <i class="fas fa-percent"></i>
+                               <i class="fas fa-percent"></i>
                               </div>
-                            </div>
-                          </div>
+                            </div><canvas id="dashboardChart2" width="500" height="500"></canvas>
+                              <script>var data = {
+    labels: [
+        "Accuracy",
+        "Inaccurate"
+
+
+    ],
+    datasets: [
+        {
+            data: [{{my_dict["Roc_auc_score"][0]}}, 1-{{my_dict["Roc_auc_score"][0]}}],
+            backgroundColor: [
+                "#008000",
+                "rgba(105,105,105 ,0)",
+                "#FFCE56"
+            ],
+            hoverBackgroundColor: [
+                "#36A2EB",
+                "#36A2EB",
+                "#FFCE56"
+            ]
+        }]
+};
+
+var ctx = document.getElementById("dashboardChart2");
+
+// And for a doughnut chart
+var myDoughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: data,
+    options: {
+    	rotation: 1 * Math.PI,
+      circumference: 1 * Math.PI
+    }
+});</script>
+                          </div><h1 style="text-align:center;font-size: 4em; color:rgba(34,139,34 ,05);">{{my_dict["Roc_auc_score"][0]}}</h1>
                           <p class="mt-3 mb-0 text-muted text-sm">
-                            <span class="text-warning mr-2"><i class="fas fa-arrow-up"></i> 3.12%</span>
-                            <span class="text-nowrap">Since yesterday</span>
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{my_dict["Roc_auc_score"][0]-my_dict["Roc_auc_score"][1]}}%</span>
+                            <span class="text-nowrap">From Test Accuracy</span>
                           </p>
                         </div>
                       </div>
@@ -230,24 +332,58 @@
                         <div class="card-body">
                           <div class="row">
                             <div class="col">
-                              <h5 class="card-title text-uppercase text-info mb-0">Müşteri</h5>
-                              <span class="h2 font-weight-bold mb-0"style="color:bisque">6</span>
+                              <h2 class="card-title  text-info mb-0 " >Test Roc auc score</h2>
+
                             </div>
                             <div class="col-auto">
-                              <div class="icon icon-shape bg-info text-white rounded-circle shadow"style="width: 3rem;
+                              <div class="icon icon-shape bg-yellow text-white rounded-circle shadow" style="width: 3rem;
                               height: 3rem; font-size: 2.25rem;display: inline-flex;
   padding: 12px;
   text-align: center;
   border-radius: 50%;
   align-items: center;
   justify-content: center">
-                                <i class="fas fa-users"></i>
+                               <i class="fas fa-percent"></i>
                               </div>
-                            </div>
-                          </div>
+                            </div><canvas id="dashboardChart3" width="500" height="500"></canvas>
+                              <script>var data = {
+    labels: [
+        "Accuracy",
+        "Inaccurate"
+
+
+    ],
+    datasets: [
+        {
+            data: [{{my_dict["Roc_auc_score"][1]}}, 1-{{my_dict["Roc_auc_score"][1]}}],
+            backgroundColor: [
+                "#008000",
+                "rgba(105,105,105 ,0)",
+                "#FFCE56"
+            ],
+            hoverBackgroundColor: [
+                "#36A2EB",
+                "#36A2EB",
+                "#FFCE56"
+            ]
+        }]
+};
+
+var ctx = document.getElementById("dashboardChart3");
+
+// And for a doughnut chart
+var myDoughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: data,
+    options: {
+    	rotation: 1 * Math.PI,
+      circumference: 1 * Math.PI
+    }
+});</script>
+                          </div><h1 style="text-align:center;font-size: 4em; color:rgba(34,139,34 ,05);">{{my_dict["Roc_auc_score"][1]}} </h1>
                           <p class="mt-3 mb-0 text-muted text-sm">
-                            <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 20%</span>
-                            <span class="text-nowrap">Since last month</span>
+                            <span class="text-success mr-2"style="font-size: 1em;"><i class="fa fa-arrow-down"></i> {{my_dict["Roc_auc_score"][0]-my_dict["Roc_auc_score"][1]}}%</span>
+                            <span class="text-nowrap">From Train Roc auc score</span>
                           </p>
                         </div>
                       </div>

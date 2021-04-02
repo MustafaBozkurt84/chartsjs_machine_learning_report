@@ -33,6 +33,7 @@ class DataStore():
     my_dict_df=None
     a=None
     b=None
+    different_ROC_accuracy=None
 
 data = DataStore()
 
@@ -78,7 +79,7 @@ def index():
     for l in data.dataframelist:
         for i in l.columns:
              data.my_dict[i]= list(l[i])
-    data.round_list=["Individual_Feature_Importance","Pearson_Correlation","Spearman_Correlation","Kendall_Correlation"]
+    data.round_list=["Individual_Feature_Importance","Pearson_Correlation","Spearman_Correlation","Kendall_Correlation","Accuracy","Roc_auc_score"]
     for i in data.round_list:
         data.my_dict[i]=[round(i,2) for i in data.my_dict[i]]
     data.my_dict["summary_df_columns"]=data.summary_df.columns
@@ -162,6 +163,7 @@ def index():
             data.my_dict["create chart2"] = list(data.my_dict_df.iloc[:, 1])
             data.my_dict["chart_type"] = "line"
             data.my_dict["prediction_output_len"] = len(data.my_dict["create label1"])
+            data.my_dict["different_accuracy"]=data.my_dict["Accuray"][0]-data.my_dict["Accuray"][1]
 
 
 
@@ -169,7 +171,9 @@ def index():
 
 
 
-    return render_template('dashboard1.html', my_dict = data.my_dict ,select_box=data.select_box)
+
+
+    return render_template('dashboard1.html', my_dict = data.my_dict ,select_box=data.select_box,different_ROC_accuracy=data.different_ROC_accuracy)
 
 
 @app.route('/login', methods=["POST","GET"])

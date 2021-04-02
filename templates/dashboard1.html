@@ -165,7 +165,7 @@
                             </div><canvas id="dashboardChart" width="500" height="500"></canvas>
                               <script>var data = {
     labels: [
-        "Accuracy",
+        "Train Accuracy",
         "Inaccurate"
 
 
@@ -174,7 +174,7 @@
         {
             data: [{{my_dict["Accuracy"][0]}}, 1-{{my_dict["Accuracy"][0]}}],
             backgroundColor: [
-                "#008000",
+                 "rgba(32, 165, 37, 0.3)",
                 "rgba(105,105,105 ,0)",
                 "#FFCE56"
             ],
@@ -182,7 +182,11 @@
                 "#36A2EB",
                 "#36A2EB",
                 "#FFCE56"
-            ]
+            ],
+            borderColor: "rgba(32, 165, 37, 0.8)",
+
+            borderWidth: 1
+
         }]
 };
 
@@ -226,7 +230,7 @@ var myDoughnutChart = new Chart(ctx, {
                             </div><canvas id="dashboardChart1" width="500" height="500"></canvas>
                               <script>var data = {
     labels: [
-        "Accuracy",
+        "Test Accuracy",
         "Inaccurate"
 
 
@@ -235,7 +239,7 @@ var myDoughnutChart = new Chart(ctx, {
         {
             data: [{{my_dict["Accuracy"][1]|safe}}, 1-{{my_dict["Accuracy"][1]|safe}}],
             backgroundColor: [
-                "#008000",
+                 "rgba(32, 165, 37, 0.3)",
                 "rgba(105,105,105 ,0)",
                 "#FFCE56"
             ],
@@ -243,7 +247,11 @@ var myDoughnutChart = new Chart(ctx, {
                 "#36A2EB",
                 "#36A2EB",
                 "#FFCE56"
-            ]
+            ],
+            borderColor: "rgba(32, 165, 37, 0.8)",
+
+            borderWidth: 1
+
         }]
 };
 
@@ -287,7 +295,7 @@ var myDoughnutChart = new Chart(ctx, {
                             </div><canvas id="dashboardChart2" width="500" height="500"></canvas>
                               <script>var data = {
     labels: [
-        "Accuracy",
+        "Train Roc auc score",
         "Inaccurate"
 
 
@@ -296,15 +304,19 @@ var myDoughnutChart = new Chart(ctx, {
         {
             data: [{{my_dict["Roc_auc_score"][0]}}, 1-{{my_dict["Roc_auc_score"][0]}}],
             backgroundColor: [
-                "#008000",
+                 "#36A2EB",
                 "rgba(105,105,105 ,0)",
                 "#FFCE56"
             ],
             hoverBackgroundColor: [
-                "#36A2EB",
-                "#36A2EB",
-                "#FFCE56"
-            ]
+                "rgba(32, 165, 37, 0.3)",
+                "rgba(32, 165, 37, 0.3)",
+                "rgba(32, 165, 37, 0.3)"
+            ],
+            borderColor: "#36A2EB",
+
+            borderWidth: 1
+
         }]
 };
 
@@ -319,10 +331,10 @@ var myDoughnutChart = new Chart(ctx, {
       circumference: 1 * Math.PI
     }
 });</script>
-                          </div><h1 style="text-align:center;font-size: 4em; color:rgba(34,139,34 ,05);">{{my_dict["Roc_auc_score"][0]}}</h1>
+                          </div><h1 style="text-align:center;font-size: 4em; color:#36A2EB;">{{my_dict["Roc_auc_score"][0]}}</h1>
                           <p class="mt-3 mb-0 text-muted text-sm">
                             <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{my_dict["Roc_auc_score"][0]-my_dict["Roc_auc_score"][1]}}%</span>
-                            <span class="text-nowrap">From Test Accuracy</span>
+                            <span class="text-nowrap">From Test Roc auc score</span>
                           </p>
                         </div>
                       </div>
@@ -348,7 +360,7 @@ var myDoughnutChart = new Chart(ctx, {
                             </div><canvas id="dashboardChart3" width="500" height="500"></canvas>
                               <script>var data = {
     labels: [
-        "Accuracy",
+        "Test Roc auc score",
         "Inaccurate"
 
 
@@ -357,18 +369,21 @@ var myDoughnutChart = new Chart(ctx, {
         {
             data: [{{my_dict["Roc_auc_score"][1]}}, 1-{{my_dict["Roc_auc_score"][1]}}],
             backgroundColor: [
-                "#008000",
+                 "#36A2EB",
                 "rgba(105,105,105 ,0)",
                 "#FFCE56"
             ],
             hoverBackgroundColor: [
-                "#36A2EB",
-                "#36A2EB",
-                "#FFCE56"
-            ]
+                "rgba(32, 165, 37, 0.3)",
+                "rgba(32, 165, 37, 0.3)",
+                "rgba(32, 165, 37, 0.3)"
+            ],
+            borderColor: "#36A2EB",
+
+            borderWidth: 1
+
         }]
 };
-
 var ctx = document.getElementById("dashboardChart3");
 
 // And for a doughnut chart
@@ -380,7 +395,7 @@ var myDoughnutChart = new Chart(ctx, {
       circumference: 1 * Math.PI
     }
 });</script>
-                          </div><h1 style="text-align:center;font-size: 4em; color:rgba(34,139,34 ,05);">{{my_dict["Roc_auc_score"][1]}} </h1>
+                          </div><h1 style="text-align:center;font-size: 4em; color:#36A2EB;">{{my_dict["Roc_auc_score"][1]}} </h1>
                           <p class="mt-3 mb-0 text-muted text-sm">
                             <span class="text-success mr-2"style="font-size: 1em;"><i class="fa fa-arrow-down"></i> {{my_dict["Roc_auc_score"][0]-my_dict["Roc_auc_score"][1]}}%</span>
                             <span class="text-nowrap">From Train Roc auc score</span>
@@ -467,7 +482,7 @@ var myChart4 = new Chart(ctx, {
           <div class="col-lg-6 col-md-12">
             <div class="card ">
              <div class="card-header">
-                <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-info"></i>Accuracy Report</h4>
+                <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-info"></i>Prediction Output Aggregated</h4>
                 <h3 class="card-title"><i class="tim-icons icon-single-02 text-success"></i> Total observations Train: {{my_dict["Total_observations"][0]}}
                   Test: {{my_dict["Total_observations"][1]}}
               </h3>
@@ -503,11 +518,9 @@ var myChart4 = new Chart(ctx, {
             <div class="card card-chart table-responsive" >
 
               <div class="card-header">
-                <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-success"></i>Feature Importance
+                <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-success"></i>Prediction Output
                </h4>
-                <h3 class="card-title"><i class="tim-icons icon-single-02 text-primary"></i> Ankete Katılan Sayı
 
-               </h3>
               </div>
               <div class="table-responsive">
 
@@ -532,8 +545,8 @@ var myChart4 = new Chart(ctx, {
                         <th>{{i}}</th>
                         {% endfor %}
                       </tr>
-                        </th>
-                      </tr>
+
+
                     </thead>
                     <tbody>
                      {% for i in range(0,my_dict["prediction_filtered_len_num"]) %}
@@ -588,7 +601,7 @@ var myChart4 = new Chart(ctx, {
               <div class="card-header">
                 <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-success"></i> Permutation Feature Importance
                </h4>
-                <h3 class="card-title"><i class="tim-icons icon-single-02 text-primary"></i> Ankete Katılan Sayı
+                <h3 class="card-title">
 
                </h3>
               </div>
@@ -662,7 +675,7 @@ var myChart4 = new Chart(ctx, {
               <div class="card-header">
                 <h4 style="color:rgba(255, 99, 132, 1);"><i class="tim-icons icon-zoom-split text-success"></i>Feature Importance
                </h4>
-                <h3 class="card-title"><i class="tim-icons icon-single-02 text-primary"></i> Ankete Katılan Sayı
+                <h3 class="card-title">
 
                </h3>
               </div>
@@ -984,7 +997,7 @@ var myChart4 = new Chart(ctx, {
               <div class="table-responsive">
 
                    <form action="{{my_dict["url"]}}" method="post" id="multiple_select_form" style="font-size;medium; " >
-              <h3>Select ID for Filtering </h3>
+              <h3>Select Column Name for Filtering </h3>
      <select name="summary" id="summary" class="form-control selectpicker" style="font-size;medium;margin-top: 0px;padding:5px;" data-live-search="true" multiple  size="6">
         {% for id in my_dict["summary_features"] %}
        <option value="{{id}}" style="font-size: medium ;">{{id}}</option>

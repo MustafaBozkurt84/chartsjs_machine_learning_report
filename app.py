@@ -38,7 +38,25 @@ class DataStore():
 data = DataStore()
 
 
+fig, ax = plt.subplots(figsize=(7, 5))
+ax = sns.set_style("darkgrid")
 
+
+cf_matrix = np.array([[data.accuracy_report["TN"][1], data.accuracy_report["FP"][1]],
+                          [data.accuracy_report["FN"][1], data.accuracy_report["TP"][1]]])
+group_names = ["True Neg", "False Pos", "False Neg", "True Pos"]
+group_counts = ["{0:0.0f}".format(value) for value in
+                    cf_matrix.flatten()]
+group_percentages = ["{0:.2%}".format(value) for value in
+                         cf_matrix.flatten() / np.sum(cf_matrix)]
+labels = [f"{v1}\n{v2}\n{v3}" for v1, v2, v3 in
+              zip(group_names, group_counts, group_percentages)]
+labels = np.asarray(labels).reshape(2, 2)
+sns.heatmap(cf_matrix, annot=labels, fmt="", cmap='Blues')
+
+canvas =FigureCanvas(fig)
+img=io.BytesIO()
+fig.savefig('plot_confusion_matrix.png',transparent=True)
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
@@ -171,33 +189,11 @@ def index():
 
 
     return render_template('dashboard1.html', my_dict = data.my_dict ,select_box=data.select_box,different_ROC_accuracy=data.different_ROC_accuracy)
-@app.route('/visualize')
-def visualize():
-    fig, ax = plt.subplots(figsize=(7, 5))
-    ax = sns.set_style("darkgrid")
 
-
-    cf_matrix = np.array([[data.accuracy_report["TN"][1], data.accuracy_report["FP"][1]],
-                          [data.accuracy_report["FN"][1], data.accuracy_report["TP"][1]]])
-    group_names = ["True Neg", "False Pos", "False Neg", "True Pos"]
-    group_counts = ["{0:0.0f}".format(value) for value in
-                    cf_matrix.flatten()]
-    group_percentages = ["{0:.2%}".format(value) for value in
-                         cf_matrix.flatten() / np.sum(cf_matrix)]
-    labels = [f"{v1}\n{v2}\n{v3}" for v1, v2, v3 in
-              zip(group_names, group_counts, group_percentages)]
-    labels = np.asarray(labels).reshape(2, 2)
-    sns.heatmap(cf_matrix, annot=labels, fmt="", cmap='Blues')
-
-    canvas =FigureCanvas(fig)
-    img=io.BytesIO()
-    fig.savefig(img,transparent=True)
-    img.seek(0)
-    return send_file(img,mimetype="img/png")
 @app.route('/visualize1')
 def visualize1():
-    fig1, ax1 = plt.subplots(figsize=(7, 5))
-    ax1 = sns.set_style("darkgrid")
+    fig, ax = plt.subplots(figsize=(7, 5))
+    ax = sns.set_style("darkgrid")
 
 
     cf_matrix1 = np.array([[data.accuracy_report["TN"][0], data.accuracy_report["FP"][0]],
@@ -209,9 +205,9 @@ def visualize1():
     labels1 = np.asarray(labels1).reshape(2, 2)
     sns.heatmap(cf_matrix1, annot=labels1, fmt="", cmap='Blues')
 
-    canvas1 =FigureCanvas(fig1)
+    canvas1 =FigureCanvas(fig)
     img1=io.BytesIO()
-    fig1.savefig(img1,transparent=True)
+    fig.savefig(img1,transparent=True)
     img1.seek(1)
     return send_file(img1,mimetype="img/png",filename_or_fp="train confusion matrix")
 

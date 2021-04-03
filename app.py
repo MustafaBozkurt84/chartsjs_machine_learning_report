@@ -603,6 +603,7 @@ def summary():
         data.my_dict[i] = [round(i, 2) for i in data.my_dict[i]]
     data.my_dict["summary_df_columns"] = data.summary_df.columns
     data.my_dict["summary_features"] = list(data.summary_df["Column_Name"])
+
     data.my_dict["summary_features_selected"] = request.form.getlist("summary")
     if len(data.my_dict["summary_features_selected"]) == 0:
         data.my_dict["summary_features_selected"] = list(data.summary_df["Column_Name"])
